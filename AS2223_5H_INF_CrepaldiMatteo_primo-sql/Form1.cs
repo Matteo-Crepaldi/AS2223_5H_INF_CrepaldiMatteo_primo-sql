@@ -76,64 +76,19 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 
         private string ReplaceParameters(string input)
         {
-            if(input.Contains("@PAR1@"))
+            for(int K = 1; K <= 6; K++)
             {
-                if (txtParametro1.Text.Trim() == string.Empty)
-                {
-                    MessageBox.Show("Inserire valore per @PAR1@");
-                    return string.Empty;
-                }
-                else input = input.Replace("@PAR1@", txtParametro1.Text);
-            }
+                var txt = (TextBox)this.Controls.Find($"txtParametro{K}", true)[0];
 
-            if (input.Contains("@PAR2@"))
-            {
-                if (txtParametro2.Text.Trim() == string.Empty)
+                if (input.Contains($"PAR{K}"))
                 {
-                    MessageBox.Show("Inserire valore per @PAR2@");
-                    return string.Empty;
+                    if (txt.Text.Trim() == string.Empty)
+                    {
+                        MessageBox.Show($"Inserire valore per @PAR{K}@");
+                        return string.Empty;
+                    }
+                    else input = input.Replace($"@PAR{K}@", txt.Text);
                 }
-                else input = input.Replace("@PAR2@", txtParametro2.Text);
-            }
-
-            if (input.Contains("@PAR3@"))
-            {
-                if (txtParametro3.Text.Trim() == string.Empty)
-                {
-                    MessageBox.Show("Inserire valore per @PAR3@");
-                    return string.Empty;
-                }
-                else input = input.Replace("@PAR3@", txtParametro3.Text);
-            }
-
-            if (input.Contains("@PAR4@"))
-            {
-                if (txtParametro4.Text.Trim() == string.Empty)
-                {
-                    MessageBox.Show("Inserire valore per @PAR4@");
-                    return string.Empty;
-                }
-                else input = input.Replace("@PAR4@", txtParametro4.Text);
-            }
-
-            if (input.Contains("@PAR5@"))
-            {
-                if (txtParametro5.Text.Trim() == string.Empty)
-                {
-                    MessageBox.Show("Inserire valore per @PAR5@");
-                    return string.Empty;
-                }
-                else input = input.Replace("@PAR5@", txtParametro5.Text);
-            }
-
-            if (input.Contains("@PAR6@"))
-            {
-                if (txtParametro6.Text.Trim() == string.Empty)
-                {
-                    MessageBox.Show("Inserire valore per @PAR6@");
-                    return string.Empty;
-                }
-                else input = input.Replace("@PAR6@", txtParametro6.Text);
             }
 
             return input;
