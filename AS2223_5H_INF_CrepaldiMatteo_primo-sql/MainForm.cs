@@ -5,11 +5,12 @@ using System.IO;
 
 namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         List<Query> queryList;
+        DataTable dt;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             queryList = new List<Query>();
@@ -23,6 +24,7 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             opDialog.Filter = "Sqlite files (*.db)|*.db|Mdb files (*.mdb)|*mdb|Xls files (*.xls)|*xls";
             opDialog.FilterIndex = 1;
             opDialog.RestoreDirectory = true;
+            opDialog.InitialDirectory = @"C:/";
 
             DialogResult dialogResult = opDialog.ShowDialog();
 
@@ -37,6 +39,7 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             opDialog.Filter = "Text files (*.txt)|*.txt";
             opDialog.FilterIndex = 1;
             opDialog.RestoreDirectory = true;
+            opDialog.InitialDirectory = @"C:/";
 
             DialogResult dialogResult = opDialog.ShowDialog();
 
@@ -59,7 +62,7 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
                 return;
             }
 
-            DataTable dt = new DataTable();
+             dt = new DataTable();
 
             queryString = ReplaceParameters(queryString);
             if (queryString == string.Empty) return;
@@ -80,7 +83,7 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             {
                 var txt = (TextBox)this.Controls.Find($"txtParametro{K}", true)[0];
 
-                if (input.Contains($"PAR{K}"))
+                if (input.Contains($"@PAR{K}@"))
                 {
                     if (txt.Text.Trim() == string.Empty)
                     {
@@ -147,6 +150,42 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
         {
             var query = (Query)cmbQuery.SelectedItem;
             if (query != null) { txtQuery.Text = query.Contenuto; }
+        }
+
+        private void btnEsporta_Click(object sender, EventArgs e)
+        {
+            FormEsporta esporta = new FormEsporta(ConvertToHTML());
+
+            esporta.ShowDialog();
+        }
+
+        string ConvertToHTML()
+        {
+            string html = "<html><head><title>Table</title></head><body><table><tr>", content;
+
+            foreach(DataColumn dt in dt.Columns)
+            {
+                html += $"<td>{dt.ColumnName}</td>";
+            }
+
+            html += "</tr>";
+
+            foreach(DataRow dataRow in dt.Rows)
+            {
+                html += "<tr>";
+
+                foreach(DataColumn dataColumn in dt.Columns)
+                {
+                    content = dataRow[dataColumn.ColumnName].ToString();
+
+                    if(content == null) html += $"<td>null</td>";
+                    else html += $"<td>{content}</td>";
+                }
+
+                html += "</tr>";
+            }
+
+            return html + "</table></body></html>";
         }
     }
 }
