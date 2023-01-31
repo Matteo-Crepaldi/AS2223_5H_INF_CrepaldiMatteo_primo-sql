@@ -161,7 +161,7 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 
         string ConvertToHTML()
         {
-            string html = "<html><head><title>Table</title></head><body><table><tr>", content;
+            string html = "<html><head><title>Table</title><style>table, tr, td { border: 1px solid black; padding: 5px; text-align: center; } </style></head><body><table style=\"border\"><tr>", content;
 
             foreach(DataColumn dt in dt.Columns)
             {
