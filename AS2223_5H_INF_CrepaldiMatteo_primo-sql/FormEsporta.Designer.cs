@@ -30,7 +30,7 @@
         {
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnFileDB = new System.Windows.Forms.Button();
+            this.btnFile = new System.Windows.Forms.Button();
             this.btnEsporta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -53,16 +53,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Path:";
             // 
-            // btnFileDB
+            // btnFile
             // 
-            this.btnFileDB.Location = new System.Drawing.Point(330, 21);
-            this.btnFileDB.Name = "btnFileDB";
-            this.btnFileDB.Size = new System.Drawing.Size(27, 27);
-            this.btnFileDB.TabIndex = 3;
-            this.btnFileDB.Text = "...";
-            this.btnFileDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFileDB.UseVisualStyleBackColor = true;
-            this.btnFileDB.Click += new System.EventHandler(this.btnFileDB_Click);
+            this.btnFile.Location = new System.Drawing.Point(330, 21);
+            this.btnFile.Name = "btnFile";
+            this.btnFile.Size = new System.Drawing.Size(27, 27);
+            this.btnFile.TabIndex = 3;
+            this.btnFile.Text = "...";
+            this.btnFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFile.UseVisualStyleBackColor = true;
+            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
             // 
             // btnEsporta
             // 
@@ -81,7 +81,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 119);
             this.Controls.Add(this.btnEsporta);
-            this.Controls.Add(this.btnFileDB);
+            this.Controls.Add(this.btnFile);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPath);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -96,7 +96,7 @@
 
         private TextBox txtPath;
         private Label label1;
-        private Button btnFileDB;
+        private Button btnFile;
         private Button btnEsporta;
     }
 }

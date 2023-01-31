@@ -7,6 +7,8 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 {
     public partial class MainForm : Form
     {
+        //  Definizione delle variabili globali
+
         List<Query> queryList;
         DataTable dt;
 
@@ -14,7 +16,10 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
         {
             InitializeComponent();
             queryList = new List<Query>();
+            dt = new DataTable();
         }
+
+        //  Selezione del file .db e .txt
 
         private void btnFileDB_Click(object sender, EventArgs e)
         {
@@ -46,9 +51,13 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             if (dialogResult == DialogResult.OK) txtPathQuery.Text = opDialog.FileName;
         }
 
+        //  Button per l'eseczione della query selezionata
+
         private void btnEsegui_Click(object sender, EventArgs e)
         {
             string connectionString = $"Data Source={txtPath.Text};Version=3", queryString = txtQuery.Text;
+
+            //  Controllo per assicurarsi che i path dei file .db e .txt siano stati inseriti
 
             if(txtPath.Text == "" || txtPathQuery.Text == "")
             {
@@ -62,7 +71,9 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
                 return;
             }
 
-             dt = new DataTable();
+            //  Creazione della dataTable, sostituzione dei parametri e esecuzione dell'interrogazione al database
+
+            dt = new DataTable();
 
             queryString = ReplaceParameters(queryString);
             if (queryString == string.Empty) return;
@@ -77,11 +88,13 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
+        //  Sostituisce i parametri con i valori corrispondenti
+
         private string ReplaceParameters(string input)
         {
             for(int K = 1; K <= 6; K++)
             {
-                var txt = (TextBox)this.Controls.Find($"txtParametro{K}", true)[0];
+                var txt = (TextBox)this.Controls.Find($"txtParametro{K}", true)[0]; 
 
                 if (input.Contains($"@PAR{K}@"))
                 {
@@ -96,6 +109,8 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 
             return input;
         }
+
+        //  Conversione del contenuto del file delle query in una lista di oggetti Query
 
         private List<Query> DecodeFile(string input)
         {
@@ -122,6 +137,8 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             return output;
         }
 
+        //  Lettura del file query e rimepimento del comboBox
+
         private void btnCaricaQuery_Click(object sender, EventArgs e)
         {
             string fileContent;
@@ -146,35 +163,41 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             cmbQuery.ValueMember = "Contenuto";
         }
 
+        //  Modifica del contenuto della textbox quando una diversa query è selezionata 
+
         private void cmbQuery_SelectedIndexChanged(object sender, EventArgs e)
         {
             var query = (Query)cmbQuery.SelectedItem;
             if (query != null) { txtQuery.Text = query.Contenuto; }
         }
 
+        //  Chiamta della form per la seleziona del file di output
+
         private void btnEsporta_Click(object sender, EventArgs e)
         {
-            FormEsporta esporta = new FormEsporta(ConvertToHTML());
+            FormEsporta esporta = new FormEsporta(ConvertToHTML(dt));
 
             esporta.ShowDialog();
         }
 
-        string ConvertToHTML()
+        //  Conversione del contenuto del dataTable in una table html
+
+        string ConvertToHTML(DataTable dataTable)
         {
             string html = "<html><head><title>Table</title><style>table, tr, td { border: 1px solid black; padding: 5px; text-align: center; } </style></head><body><table style=\"border\"><tr>", content;
 
-            foreach(DataColumn dt in dt.Columns)
+            foreach(DataColumn dc in dataTable.Columns)
             {
-                html += $"<td>{dt.ColumnName}</td>";
+                html += $"<td>{dc.ColumnName}</td>";
             }
 
             html += "</tr>";
 
-            foreach(DataRow dataRow in dt.Rows)
+            foreach(DataRow dataRow in dataTable.Rows)
             {
                 html += "<tr>";
 
-                foreach(DataColumn dataColumn in dt.Columns)
+                foreach(DataColumn dataColumn in dataTable.Columns)
                 {
                     content = dataRow[dataColumn.ColumnName].ToString();
 

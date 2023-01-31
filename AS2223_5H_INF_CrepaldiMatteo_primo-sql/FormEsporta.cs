@@ -20,7 +20,9 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             this.html = html;
         }
 
-        private void btnFileDB_Click(object sender, EventArgs e)
+        // Selezione del file .html utilizzato per esportare il contenuto di html
+
+        private void btnFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog opDialog = new OpenFileDialog();
 
@@ -34,6 +36,8 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 
             if (dialogResult == DialogResult.OK) txtPath.Text = opDialog.FileName;
         }
+
+        //  Esporta il contenuto di html per poi chiudere la form
 
         private void btnEsporta_Click(object sender, EventArgs e)
         {
