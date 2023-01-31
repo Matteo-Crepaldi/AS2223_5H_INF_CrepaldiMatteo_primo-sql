@@ -25,11 +25,10 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
         {
             OpenFileDialog opDialog = new OpenFileDialog();
 
-            opDialog.InitialDirectory = Application.StartupPath;
+            opDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             opDialog.Filter = "Sqlite files (*.db)|*.db|Mdb files (*.mdb)|*mdb|Xls files (*.xls)|*xls";
             opDialog.FilterIndex = 1;
             opDialog.RestoreDirectory = true;
-            opDialog.InitialDirectory = @"C:/";
 
             DialogResult dialogResult = opDialog.ShowDialog();
 
@@ -40,11 +39,10 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
         {
             OpenFileDialog opDialog = new OpenFileDialog();
 
-            opDialog.InitialDirectory = Application.StartupPath;
+            opDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             opDialog.Filter = "Text files (*.txt)|*.txt";
             opDialog.FilterIndex = 1;
             opDialog.RestoreDirectory = true;
-            opDialog.InitialDirectory = @"C:/";
 
             DialogResult dialogResult = opDialog.ShowDialog();
 
@@ -175,40 +173,15 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
 
         private void btnEsporta_Click(object sender, EventArgs e)
         {
-            FormEsporta esporta = new FormEsporta(ConvertToHTML(dt));
+            if(dt.Rows.Count == 0)
+            {
+                MessageBox.Show("Impossibile esportare: il dataGrid è vuoto");
+                return;
+            }
+
+            FormEsporta esporta = new FormEsporta(dt);
 
             esporta.ShowDialog();
-        }
-
-        //  Conversione del contenuto del dataTable in una table html
-
-        string ConvertToHTML(DataTable dataTable)
-        {
-            string html = "<html><head><title>Table</title><style>table, tr, td { border: 1px solid black; padding: 5px; text-align: center; } </style></head><body><table style=\"border\"><tr>", content;
-
-            foreach(DataColumn dc in dataTable.Columns)
-            {
-                html += $"<td>{dc.ColumnName}</td>";
-            }
-
-            html += "</tr>";
-
-            foreach(DataRow dataRow in dataTable.Rows)
-            {
-                html += "<tr>";
-
-                foreach(DataColumn dataColumn in dataTable.Columns)
-                {
-                    content = dataRow[dataColumn.ColumnName].ToString();
-
-                    if(content == null) html += $"<td>null</td>";
-                    else html += $"<td>{content}</td>";
-                }
-
-                html += "</tr>";
-            }
-
-            return html + "</table></body></html>";
         }
     }
 }

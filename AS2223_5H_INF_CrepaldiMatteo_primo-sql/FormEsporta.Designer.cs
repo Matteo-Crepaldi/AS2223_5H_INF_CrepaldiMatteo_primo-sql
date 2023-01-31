@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnFile = new System.Windows.Forms.Button();
             this.btnEsporta = new System.Windows.Forms.Button();
+            this.cbNull = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtPath
@@ -67,7 +68,7 @@
             // btnEsporta
             // 
             this.btnEsporta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnEsporta.Location = new System.Drawing.Point(125, 64);
+            this.btnEsporta.Location = new System.Drawing.Point(126, 101);
             this.btnEsporta.Name = "btnEsporta";
             this.btnEsporta.Size = new System.Drawing.Size(113, 33);
             this.btnEsporta.TabIndex = 26;
@@ -75,11 +76,22 @@
             this.btnEsporta.UseVisualStyleBackColor = true;
             this.btnEsporta.Click += new System.EventHandler(this.btnEsporta_Click);
             // 
+            // cbNull
+            // 
+            this.cbNull.AutoSize = true;
+            this.cbNull.Location = new System.Drawing.Point(89, 66);
+            this.cbNull.Name = "cbNull";
+            this.cbNull.Size = new System.Drawing.Size(184, 19);
+            this.cbNull.TabIndex = 27;
+            this.cbNull.Text = "Sostituisci spazi vuoti con null";
+            this.cbNull.UseVisualStyleBackColor = true;
+            // 
             // FormEsporta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 119);
+            this.ClientSize = new System.Drawing.Size(365, 151);
+            this.Controls.Add(this.cbNull);
             this.Controls.Add(this.btnEsporta);
             this.Controls.Add(this.btnFile);
             this.Controls.Add(this.label1);
@@ -98,5 +110,6 @@
         private Label label1;
         private Button btnFile;
         private Button btnEsporta;
+        private CheckBox cbNull;
     }
 }
