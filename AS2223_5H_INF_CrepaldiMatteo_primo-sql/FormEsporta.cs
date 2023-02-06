@@ -31,7 +31,6 @@ namespace AS2223_5H_INF_CrepaldiMatteo_primo_sql
             opDialog.Filter = "Html files (*.html)|*.html";
             opDialog.FilterIndex = 1;
             opDialog.RestoreDirectory = true;
-            opDialog.InitialDirectory = @"C:/";
 
             DialogResult dialogResult = opDialog.ShowDialog();
 
